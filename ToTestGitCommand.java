@@ -5,7 +5,7 @@ public class UserCalculator {
 		System.out.println("# Assignment No: 4.");
 		System.out.println("Program Name : "+ "User Calculator.");
 		System.out.println("----------* Accept the value from user and perform arithmatic operators *---------");
-		
+	//Adding this comment to see the diff while pushing the file.	
 		int a  ,b;
 //		Scanner input=new Scanner(System.in);
 		
