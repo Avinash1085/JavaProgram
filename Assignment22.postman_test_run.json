@@ -1,0 +1,453 @@
+{
+	"id": "8f616203-8172-489c-822c-8e783ba6d172",
+	"name": "Assignment22",
+	"timestamp": "2021-05-16T18:33:39.460Z",
+	"collection_id": "a2fa0ae0-2a33-496d-a808-88ee48a71258",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 0,
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "e235663d-d771-4d0a-a231-81a52ea8df53",
+			"name": "getListUsersGetMethod",
+			"time": 83,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				92,
+				83,
+				86,
+				93,
+				83
+			],
+			"allTests": [
+				{},
+				{},
+				{},
+				{},
+				{}
+			]
+		},
+		{
+			"id": "f6a0ab6e-95ae-4766-9530-c21b431c5557",
+			"name": "getSingleUserGetAPI",
+			"time": 90,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				85,
+				82,
+				80,
+				81,
+				90
+			],
+			"allTests": [
+				{},
+				{},
+				{},
+				{},
+				{}
+			]
+		},
+		{
+			"id": "5d9eeca9-e324-4b6e-8a6c-a7da84341d59",
+			"name": "GetSignleUserNotFound",
+			"time": 83,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				84,
+				81,
+				82,
+				477,
+				83
+			],
+			"allTests": [
+				{},
+				{},
+				{},
+				{},
+				{}
+			]
+		},
+		{
+			"id": "d72f1872-3fd5-48a7-92b9-979e8e2ea5f0",
+			"name": "ListGetUnknow",
+			"time": 82,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				83,
+				80,
+				82,
+				94,
+				82
+			],
+			"allTests": [
+				{},
+				{},
+				{},
+				{},
+				{}
+			]
+		},
+		{
+			"id": "b680d627-e44b-41b1-86fc-42c89859d493",
+			"name": "GET SINGLE <RESOURCE>",
+			"time": 80,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				81,
+				86,
+				89,
+				81,
+				80
+			],
+			"allTests": [
+				{},
+				{},
+				{},
+				{},
+				{}
+			]
+		},
+		{
+			"id": "e652de60-0a90-463a-8f3c-591cb3dc697a",
+			"name": "SINGLE <RESOURCE> NOT FOUND",
+			"time": 91,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				480,
+				81,
+				80,
+				81,
+				91
+			],
+			"allTests": [
+				{},
+				{},
+				{},
+				{},
+				{}
+			]
+		},
+		{
+			"id": "61022246-b2f5-4f96-b1d7-f4cdac605c12",
+			"name": "Post Create",
+			"time": 283,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				475,
+				278,
+				282,
+				276,
+				283
+			],
+			"allTests": [
+				{},
+				{},
+				{},
+				{},
+				{}
+			]
+		},
+		{
+			"id": "f65a3143-f98c-455d-b472-2482ed0b382b",
+			"name": "PUT Update",
+			"time": 477,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				498,
+				468,
+				443,
+				472,
+				477
+			],
+			"allTests": [
+				{},
+				{},
+				{},
+				{},
+				{}
+			]
+		},
+		{
+			"id": "abe68884-d377-4540-95a4-e86fc01251ab",
+			"name": "PATCH Update",
+			"time": 500,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				470,
+				452,
+				438,
+				262,
+				500
+			],
+			"allTests": [
+				{},
+				{},
+				{},
+				{},
+				{}
+			]
+		},
+		{
+			"id": "f38f5811-5524-49c2-ae3a-0269bd61718a",
+			"name": "DELETE Delete",
+			"time": 281,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				475,
+				467,
+				493,
+				290,
+				281
+			],
+			"allTests": [
+				{},
+				{},
+				{},
+				{},
+				{}
+			]
+		},
+		{
+			"id": "06feb118-3ab3-4ae5-a48f-81705a11a7a6",
+			"name": "POST-RegisterSuccessful",
+			"time": 273,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				468,
+				443,
+				283,
+				281,
+				273
+			],
+			"allTests": [
+				{},
+				{},
+				{},
+				{},
+				{}
+			]
+		},
+		{
+			"id": "52446926-2804-4ea4-82c8-e8a203bcef37",
+			"name": "POST-RegisterUnSuccessful",
+			"time": 277,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				275,
+				475,
+				287,
+				276,
+				277
+			],
+			"allTests": [
+				{},
+				{},
+				{},
+				{},
+				{}
+			]
+		},
+		{
+			"id": "0fcf2354-1139-4d75-a2e5-c5067ac55f22",
+			"name": "POST-LOGINSuccessful",
+			"time": 293,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				503,
+				280,
+				281,
+				289,
+				293
+			],
+			"allTests": [
+				{},
+				{},
+				{},
+				{},
+				{}
+			]
+		},
+		{
+			"id": "af8dd374-e447-40f0-94e4-2baf88229ef1",
+			"name": "POST-LOGINUnSuccessful",
+			"time": 277,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				277,
+				289,
+				476,
+				277,
+				277
+			],
+			"allTests": [
+				{},
+				{},
+				{},
+				{},
+				{}
+			]
+		},
+		{
+			"id": "d8f0e264-4dd6-47e0-8d89-43f94c62f586",
+			"name": "GetDelayedResponse",
+			"time": 3277,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				3485,
+				3274,
+				3291,
+				3295,
+				3277
+			],
+			"allTests": [
+				{},
+				{},
+				{},
+				{},
+				{}
+			]
+		}
+	],
+	"count": 5,
+	"totalTime": 34595,
+	"collection": {
+		"requests": [
+			{
+				"id": "e235663d-d771-4d0a-a231-81a52ea8df53",
+				"method": "GET"
+			},
+			{
+				"id": "f6a0ab6e-95ae-4766-9530-c21b431c5557",
+				"method": "GET"
+			},
+			{
+				"id": "5d9eeca9-e324-4b6e-8a6c-a7da84341d59",
+				"method": "GET"
+			},
+			{
+				"id": "d72f1872-3fd5-48a7-92b9-979e8e2ea5f0",
+				"method": "GET"
+			},
+			{
+				"id": "b680d627-e44b-41b1-86fc-42c89859d493",
+				"method": "GET"
+			},
+			{
+				"id": "e652de60-0a90-463a-8f3c-591cb3dc697a",
+				"method": "GET"
+			},
+			{
+				"id": "61022246-b2f5-4f96-b1d7-f4cdac605c12",
+				"method": "POST"
+			},
+			{
+				"id": "f65a3143-f98c-455d-b472-2482ed0b382b",
+				"method": "PUT"
+			},
+			{
+				"id": "abe68884-d377-4540-95a4-e86fc01251ab",
+				"method": "PUT"
+			},
+			{
+				"id": "f38f5811-5524-49c2-ae3a-0269bd61718a",
+				"method": "DELETE"
+			},
+			{
+				"id": "06feb118-3ab3-4ae5-a48f-81705a11a7a6",
+				"method": "POST"
+			},
+			{
+				"id": "52446926-2804-4ea4-82c8-e8a203bcef37",
+				"method": "POST"
+			},
+			{
+				"id": "0fcf2354-1139-4d75-a2e5-c5067ac55f22",
+				"method": "POST"
+			},
+			{
+				"id": "af8dd374-e447-40f0-94e4-2baf88229ef1",
+				"method": "POST"
+			},
+			{
+				"id": "d8f0e264-4dd6-47e0-8d89-43f94c62f586",
+				"method": "GET"
+			}
+		]
+	}
+}

@@ -1,0 +1,134 @@
+{
+	"id": "1cd2a61b-0dab-4f4a-8efa-38b0cafcc122",
+	"name": "Assignment21",
+	"timestamp": "2021-05-16T17:46:31.646Z",
+	"collection_id": "bf2574ef-7e4a-4e49-b02c-ed446ac54509",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 0,
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "d7090b07-e125-4370-895c-47a46f9888e3",
+			"name": "GetEmployeeDetails",
+			"time": 1142,
+			"responseCode": {
+				"code": 429,
+				"name": "Too Many Requests"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				1309,
+				1321,
+				1191,
+				1156,
+				1142
+			],
+			"allTests": [
+				{},
+				{},
+				{},
+				{},
+				{}
+			]
+		},
+		{
+			"id": "4db73047-4683-4c92-9f8f-98915be714cb",
+			"name": "CreateNewEmpByPostMethod",
+			"time": 1092,
+			"responseCode": {
+				"code": 429,
+				"name": "Too Many Requests"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				1492,
+				1187,
+				1222,
+				1356,
+				1092
+			],
+			"allTests": [
+				{},
+				{},
+				{},
+				{},
+				{}
+			]
+		},
+		{
+			"id": "450ab397-ce30-4bec-b091-62d0bb736f20",
+			"name": "UpdateEmpDetailsByPutMethod",
+			"time": 1413,
+			"responseCode": {
+				"code": 429,
+				"name": "Too Many Requests"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				1291,
+				1302,
+				1177,
+				1157,
+				1413
+			],
+			"allTests": [
+				{},
+				{},
+				{},
+				{},
+				{}
+			]
+		},
+		{
+			"id": "d764e3f2-6a83-467e-8295-3e8cdd2aefea",
+			"name": "DeleteEmpDetailsByDeleteMethod",
+			"time": 1139,
+			"responseCode": {
+				"code": 429,
+				"name": "Too Many Requests"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				1098,
+				1320,
+				1105,
+				1157,
+				1139
+			],
+			"allTests": [
+				{},
+				{},
+				{},
+				{},
+				{}
+			]
+		}
+	],
+	"count": 5,
+	"totalTime": 24627,
+	"collection": {
+		"requests": [
+			{
+				"id": "d7090b07-e125-4370-895c-47a46f9888e3",
+				"method": "GET"
+			},
+			{
+				"id": "4db73047-4683-4c92-9f8f-98915be714cb",
+				"method": "POST"
+			},
+			{
+				"id": "450ab397-ce30-4bec-b091-62d0bb736f20",
+				"method": "PUT"
+			},
+			{
+				"id": "d764e3f2-6a83-467e-8295-3e8cdd2aefea",
+				"method": "DELETE"
+			}
+		]
+	}
+}

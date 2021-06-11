@@ -1,0 +1,403 @@
+{
+	"info": {
+		"_postman_id": "7621be58-da0a-4cd5-a51c-f28ffc1a32b3",
+		"name": "Assignment-24",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CreateEmployee",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var randomNumber = getRandomInt(10000, 11000);\r",
+							"\r",
+							"function getRandomInt(min, max) {\r",
+							"return Math.floor(Math.random() * (max - min + 1)) + min;\r",
+							"}\r",
+							"postman.setEnvironmentVariable(\"name\", \"samplename_\"+randomNumber);\r",
+							"postman.setEnvironmentVariable(\"salary\", getRandomInt(10000, 11000));\r",
+							"postman.setEnvironmentVariable(\"age\", getRandomInt(18, 60));\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Verify status code for the request\r",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+							"//Verify succesfull post request response code with or condition\r",
+							"pm.test(\"Successful POST request\", function () {\r",
+							"pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
+							" });\r",
+							"//Verify response time of request\r",
+							"pm.test(\"Response time is less than 30000ms\", function () {\r",
+							" pm.expect(pm.response.responseTime).to.be.below(30000);\r",
+							"});\r",
+							"//Verify whether content type is present or not\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"//Verify whether id field is presentin response body\r",
+							"tests[\"Has Employee Id\"] = responseBody.has(\"id\");\r",
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.environment.set(\"empid\", jsonData.data.id);\r",
+							"//Verify whether name field is present in response body\r",
+							"tests[\"Has Employee name\"] = responseBody.has(\"name\");\r",
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.environment.set(\"emp_name\", jsonData.data.name);\r",
+							"//Verify whether salary field is present in response body\r",
+							"tests[\"Has Salary\"] = responseBody.has(\"salary\");\r",
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.environment.set(\"emp_salary\", jsonData.data.salary);\r",
+							"tests[\"Has Age\"] = responseBody.has(\"age\");\r",
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.environment.set(\"emp_age\", jsonData.data.age);\r",
+							"var ename=postman.getEnvironmentVariable(\"emp_name\");\r",
+							"var esalary=postman.getEnvironmentVariable(\"emp_salary\");\r",
+							"var eage=postman.getEnvironmentVariable(\"emp_age\");\r",
+							"var eid=postman.getEnvironmentVariable(\"empid\");\r",
+							"\r",
+							"//Verify employee id from response an request body\r",
+							"pm.test(\"Verify employee id\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.id).to.eql(pm.environment.get(eid));\r",
+							"});\r",
+							"//Verify employee name from response an request body\r",
+							"pm.test(\"Verify employee name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.eql(pm.environment.get(ename));\r",
+							"});\r",
+							"//Verify employee salary from response an request body\r",
+							"pm.test(\"Verify employee salary\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.salary).to.eql(pm.environment.get(esalary));\r",
+							"});\r",
+							"\r",
+							"//Verify employee age from response an request body\r",
+							"pm.test(\"Verify employee age\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.age).to.eql(pm.environment.get(eage));\r",
+							"});\r",
+							"\r",
+							"//Verify status value in response\r",
+							"pm.test(\"Verify status value is success\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+							"});\r",
+							"//Verify if the response body contains a string for name field\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"name\");\r",
+							"});\r",
+							"//Verify Content Type header\r",
+							"pm.test(\"Content-Type header is application/json\", () => {\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"});\r",
+							"//Verify whether jesession id is present or not\r",
+							"pm.test(\"Cookie JSESSIONID is present\", () => {\r",
+							"  pm.expect(pm.cookies.has('JSESSIONID')).to.be.false;\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"{{name}}\",\r\n    \"salary\": {{salary}},\r\n     \"age\": {{age}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{url}}/api/v1/create",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllemployees",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Verify status code for the request\r",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+							"//Verify response time of request\r",
+							"pm.test(\"Response time is less than 30000ms\", function () {\r",
+							" pm.expect(pm.response.responseTime).to.be.below(30000);\r",
+							"});\r",
+							"//Verify whether content type is present or not\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{protocol}}://{{url}}/api/v1/employees",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Getspecificemp",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Verify status code for the request\r",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+							"//Verify response time of request\r",
+							"pm.test(\"Response time is less than 4000ms\", function () {\r",
+							" pm.expect(pm.response.responseTime).to.be.below(4000);\r",
+							"});\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"//Verify whether id field is presentin response body\r",
+							"tests[\"Has Employee Id\"] = responseBody.has(\"id\");\r",
+							"\r",
+							"//Verify whether name field is present in response body\r",
+							"tests[\"Has Employee name\"] = responseBody.has(\"name\");\r",
+							"\r",
+							"//Verify whether salary field is present in response body\r",
+							"tests[\"Has Salary\"] = responseBody.has(\"salary\");\r",
+							"//Verify whether age field is present in response body\r",
+							"tests[\"Has Age\"] = responseBody.has(\"age\");\r",
+							"var jsonData = JSON.parse(responseBody);\r",
+							"\r",
+							"//Verify id field value in  body and environment variable\r",
+							"tests[\"'Value of field id in reponse matching with env variable value?'\"] = \r",
+							"jsonData.data.id == postman.getEnvironmentVariable(\"empid\");\r",
+							"//Verify name field value in  body and environment variable\r",
+							"tests[\"'Value of field name in reponse matching with env variable value?'\"] = \r",
+							"jsonData.data.emplyoee_name == postman.getEnvironmentVariable(\"emp_name\");\r",
+							"//Verify age field value in  body and environment variable\r",
+							"tests[\"'Value of field age in reponse matching with env variable value?'\"] = \r",
+							"jsonData.data.employee_age == postman.getEnvironmentVariable(\"emp_age\");\r",
+							"//Verify salary field value in  body and environment variable\r",
+							"tests[\"'Value of field age in reponse matching with env variable value?'\"] = \r",
+							"jsonData.data.employee_salary == postman.getEnvironmentVariable(\"emp_salary\");\r",
+							"//Verify profile image field value is null\r",
+							"tests[\"Is profile_image Null ?\"] = jsonData.profile_image == null;\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{protocol}}://{{url}}/api/v1/employee/{{empid}}",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employee",
+						"{{empid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Updateemp",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Verify status code for the request\r",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+							"//Verify response time of request\r",
+							"pm.test(\"Response time is less than 40000ms\", function () {\r",
+							" pm.expect(pm.response.responseTime).to.be.below(40000);\r",
+							"});\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"\r",
+							"//Verify whether name field is present in response body\r",
+							"tests[\"Has Employee name\"] = responseBody.has(\"name\");\r",
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.environment.set(\"emp_name\", jsonData.data.name);\r",
+							"//Verify whether salary field is present in response body\r",
+							"tests[\"Has Salary\"] = responseBody.has(\"salary\");\r",
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.environment.set(\"emp_salary\", jsonData.data.salary);\r",
+							"tests[\"Has Age\"] = responseBody.has(\"age\");\r",
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.environment.set(\"emp_age\", jsonData.data.age);\r",
+							"//Verify name field value in  body and environment variable\r",
+							"tests[\"'Value of field name in reponse matching with env variable value?'\"] = \r",
+							"jsonData.data.name == postman.getEnvironmentVariable(\"emp_name\");\r",
+							"//Verify age field value in  body and environment variable\r",
+							"tests[\"'Value of field age in reponse matching with env variable value?'\"] = \r",
+							"jsonData.data.age == postman.getEnvironmentVariable(\"emp_age\");\r",
+							"//Verify salary field value in  body and environment variable\r",
+							"tests[\"'Value of field salary in reponse matching with env variable value?'\"] = \r",
+							"jsonData.data.salary == postman.getEnvironmentVariable(\"emp_salary\");\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var randomNumber = getRandomInt(20000, 21000);\r",
+							"\r",
+							"function getRandomInt(min, max) {\r",
+							"return Math.floor(Math.random() * (max - min + 1)) + min;\r",
+							"}\r",
+							"postman.setEnvironmentVariable(\"name\", \"samplename_\"+randomNumber);\r",
+							"postman.setEnvironmentVariable(\"salary\", getRandomInt(10000, 11000));\r",
+							"postman.setEnvironmentVariable(\"age\", getRandomInt(18, 60));\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"{{name}}\",\r\n    \"salary\": {{salary}},\r\n     \"age\": {{age}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{url}}/api/v1/update/{{empid}}",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"update",
+						"{{empid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deleteemp",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Verify status code for the request\r",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+							"//Verify response time of request\r",
+							"pm.test(\"Response time is less than 30000ms\", function () {\r",
+							" pm.expect(pm.response.responseTime).to.be.below(30000);\r",
+							"});\r",
+							"//Verify whether content type is present or not\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"\r",
+							"//Verify status value in response\r",
+							"pm.test(\"Verify status value is success\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+							"});\r",
+							"   \r",
+							"pm.test(\"Validate employee id\", function () {\r",
+							" var jsonData = pm.response.json();\r",
+							"\r",
+							"    if(jsonData != null){\r",
+							"        pm.environment.unset(\"empid\");\r",
+							"        pm.environment.unset(\"emp_name\");\r",
+							"        pm.environment.unset(\"emp_age\");\r",
+							"        pm.environment.unset(\"emp_salary\");\r",
+							"    };\r",
+							"   \r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{protocol}}://{{url}}/api/v1/delete/{{empid}}",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"delete",
+						"{{empid}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,407 @@
+{
+	"info": {
+		"_postman_id": "06c585c3-6bcf-4811-85ad-09ace0f1bf21",
+		"name": "Assignment27",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CreateAPI_TitanicSampleForTestingChanges",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Response Code should be 200\"]=responseCode.code===200;\r",
+							"var jsonData=JSON.parse(responseBody);\r",
+							"tests[\"Response has field called Title ?\"]=responseBody.has(\"Title\");\r",
+							"pm.environment.set(\"MV_Name\",\"titanic\");\r",
+							"var MV_Name=postman.getEnvironmentVariable(\"MV_Name\");\r",
+							"tests[\"Title of movie in Responsebody is : '\"+jsonData.Title+\"' , Dose it matched with Expected Title? '\"+MV_Name+\"'.\"]=jsonData.Title==postman.getEnvironmentVariable(\"MV_Name\");\r",
+							"\r",
+							"pm.environment.set(\"ImdbID\",jsonData.imdbID);\r",
+							"\r",
+							"pm.environment.set(\"ImdbRating\",jsonData.imdbRating);\r",
+							"\r",
+							"pm.environment.set(\"Rating[0]\",jsonData.Ratings[0].Value);\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"//If you see in request URL of query parameter : I have provided 'i'(optional) i.e IMDb ID (e.g. tt1285016) as well 't'(optional) i.e Movie title to search for. and apikey(Manadatory).\r",
+							"//*Please note while both \"i\" and \"t\" are optional at least one argument is required.\r",
+							"//-----------------------------------------------------------------------------------------------\r",
+							"//Parameter\t| Required\t| Valid Options\t| Default Value\t| Description\r",
+							"//i\t        | Optional*\t|               | <empty>\t    | A valid IMDb ID (e.g. tt1285016)\r",
+							"//t\t        | Optional*\t|               | <empty>\t    | Movie title to search for.\r",
+							"//type      | No    \t| movie, series,| <empty>\t    | Type of result to return.\r",
+							"//                          episode\r",
+							"//y\t        |No\t\t    |               |<empty>\t    |Year of release.\r",
+							"\r",
+							"//In this API call I have provided My APIKEY and Movie Name and \r",
+							"//in response I have validated Response code is 200 .\r",
+							"//For Movie name Titanic Title key/field is present in response .\r",
+							"//I have verified Reponse title with my Environment variable name, both should match.\r",
+							"//Then I have extracted imdbID and Ratings for titanic movie from response code."
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{protocol}}{{url}}?i=tt3896198&&apikey=9abc39b8&&t=titanic",
+					"host": [
+						"{{protocol}}{{url}}"
+					],
+					"query": [
+						{
+							"key": "i",
+							"value": "tt3896198"
+						},
+						{
+							"key": null,
+							"value": null
+						},
+						{
+							"key": "apikey",
+							"value": "9abc39b8"
+						},
+						{
+							"key": null,
+							"value": null
+						},
+						{
+							"key": "t",
+							"value": "titanic"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SearchMovieAPI_ByMovieName_Titanic",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"TC_01_Verify That Response Code should be 200\"] = responseCode.code === 200;\r",
+							"var jsonData = JSON.parse(responseBody);\r",
+							"tests[\"TC_02_Verify that Response body has field called 'Title' ?\"] = responseBody.has(\"Title\");\r",
+							"\r",
+							"//Creating MV_Name variable in environment and storing value of Title into it from responseBody.\r",
+							"pm.environment.set(\"MV_Name\", \"titanic\");\r",
+							"var MV_Name = postman.getEnvironmentVariable(\"MV_Name\");\r",
+							"tests[\"TC_03_Verify that Title of movie in Responsebody is : '\" + jsonData.Title + \"' , Dose it matched with Expected Title? '\" + MV_Name + \"'.\"] = jsonData.Title == postman.getEnvironmentVariable(\"MV_Name\");\r",
+							"\r",
+							"tests[\"TC_04_Verify that Response body holds field named as 'Year'\"]=responseBody.has(\"Year\");\r",
+							"\r",
+							"tests[\"TC_05_Verify that Response body contains field name 'Rated'\"]=responseBody.has(\"Rated\");\r",
+							"tests[\"TC_06_Verify that Response body filed name 'Released\"]=responseBody.has(\"Released\");\r",
+							"tests[\"TC_07_Verify that Response body contains field 'Runtime\"]=responseBody.has(\"Runtime\");\r",
+							"tests[\"TC_08_Verify that Response body contains field Genre\"]=responseBody.has(\"Genre\");\r",
+							"\r",
+							"tests[\"TC_09_Verify that Response body contains field Director\"]=responseBody.has(\"Director\");\r",
+							"\r",
+							"tests[\"TC_10_Verify that Response body contains field Writer\"]=responseBody.has(\"Writer\");\r",
+							"\r",
+							"tests[\"TC_11_Verify that Response body contains field Actors\"]=responseBody.has(\"Actors\");\r",
+							"\r",
+							"tests[\"TC_12_Verify that Response body contains field Plot\"]=responseBody.has(\"Plot\");\r",
+							"\r",
+							"tests[\"TC_13_Verify that Response body contains field Language\"]=responseBody.has(\"Language\");\r",
+							"\r",
+							"tests[\"TC_14_Verify that Response body contains field Country\"]=responseBody.has(\"Country\");\r",
+							"\r",
+							"tests[\"TC_15_Verify that Response body contains field Awards\"]=responseBody.has(\"Awards\");\r",
+							"\r",
+							"tests[\"TC_16_Verify that Response body contains field Poster\"]=responseBody.has(\"Poster\");\r",
+							"\r",
+							"//Extracting imdbID value from response body and Creating a environment variable called 'ImdbID' & storing value of response field into this env variable.\r",
+							"pm.environment.set(\"ImdbID\", jsonData.imdbID);\r",
+							"\r",
+							"//Extracting imdbRating value from response body and Creating a environment variable called 'ImdbRating' & storing value of response field into this env variable 'ImdbRating'\r",
+							"pm.environment.set(\"ImdbRating\", jsonData.imdbRating);\r",
+							"\r",
+							"\r",
+							"//Extracting Rating[0]'s value from response body and Creating a environment variable called 'Rating[0]' & storing value of response field into this env variable 'Rating[0]'\r",
+							"pm.environment.set(\"Rating[0]\", jsonData.Ratings[0].Value);\r",
+							"\r",
+							"//Taking BoxOffice field's value from response boody and storing in env variable.\r",
+							"pm.environment.set(\"BoxOfficeCollection\", responseBody.BoxOffice);//with this statement variable is created but value is stored as null. so use below one \r",
+							"pm.environment.set(\"BoxOfficeCollection\", jsonData.BoxOffice);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"//In this API call I am fetching Movie details BY 'Movie title' i.e 't=titanic' so here I have provided My APIKey i.e 'apikey=9abc39b8' and Movie Name i.e 't=titanic'\r",
+							"//e.g: {{protocol}}{{url}}?apikey=9abc39b8&&t=titanic\r",
+							"// \r",
+							"//Then \r",
+							"//in response I have validated Response code is 200 .\r",
+							"//For Movie name Titanic Title key/field is present in response .\r",
+							"//I have verified Reponse title with my Environment variable name, both should match.\r",
+							"//Then I have extracted imdbID and Ratings for titanic movie frfom response code."
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{protocol}}{{url}}?apikey=9abc39b8&&t=titanic",
+					"host": [
+						"{{protocol}}{{url}}"
+					],
+					"query": [
+						{
+							"key": "apikey",
+							"value": "9abc39b8"
+						},
+						{
+							"key": null,
+							"value": null
+						},
+						{
+							"key": "t",
+							"value": "titanic"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SearchMovieAPI_TitanicTriggringUsingDeclaredVariables",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Response Code should be 200\"]=responseCode.code===200;\r",
+							"var jsonData=JSON.parse(responseBody);\r",
+							"tests[\"Response has field called Title ?\"]=responseBody.has(\"Title\");\r",
+							"\r",
+							"//Creating MV_Name variable in environment and storing value of Title into it from responseBody.\r",
+							"pm.environment.set(\"MV_Name\",\"titanic\");\r",
+							"var MV_Name=postman.getEnvironmentVariable(\"MV_Name\");\r",
+							"tests[\"Title of movie in Responsebody is : '\"+jsonData.Title+\"' , Dose it matched with Expected Title? '\"+MV_Name+\"'.\"]=jsonData.Title==postman.getEnvironmentVariable(\"MV_Name\");\r",
+							"\r",
+							"//Extracting imdbID value from response body and Creating a environment variable called 'ImdbID' & storing value of response field into this env variable.\r",
+							"pm.environment.set(\"ImdbID\",jsonData.imdbID);\r",
+							"\r",
+							"//Extracting imdbRating value from response body and Creating a environment variable called 'ImdbRating' & storing value of response field into this env variable 'ImdbRating'\r",
+							"pm.environment.set(\"ImdbRating\",jsonData.imdbRating);\r",
+							"\r",
+							"\r",
+							"//Extracting Rating[0]'s value from response body and Creating a environment variable called 'Rating[0]' & storing value of response field into this env variable 'Rating[0]'\r",
+							"pm.environment.set(\"Rating[0]\",jsonData.Ratings[0].Value);\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"//This API call is exact copy of SearchMovieAPI_ByMovieName_Titanic API, but in this API call just I have used variables instead of actual values in URL&URI\r",
+							"//SearchMovieAPI_ByMovieName_Titanic : {{protocol}}{{url}}?apikey=9abc39b8&&t=titanic\r",
+							"//SearchMovieAPI_TitanicTriggringUsingDeclaredVariables: {{protocol}}{{url}}?apikey={{MyAPIKey}}&&t={{MV_NameForURI}}\r",
+							"//in above API call which ever you can see in {{}} are variables declared in environment and they are hodling respective values."
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{protocol}}{{url}}?apikey={{MyAPIKey}}&&t={{MV_NameForURI}}",
+					"host": [
+						"{{protocol}}{{url}}"
+					],
+					"query": [
+						{
+							"key": "apikey",
+							"value": "{{MyAPIKey}}"
+						},
+						{
+							"key": null,
+							"value": null
+						},
+						{
+							"key": "t",
+							"value": "{{MV_NameForURI}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SearchMovieByMovieID_i",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"//In this API call I am fetching Movie details BY 'Movie ID' i.e i=tt0120338 so here I have provided My APIKey i.e 'apikey=9abc39b8' and Movie Name i.e 't=titanic' e.g : {{protocol}}{{url}}?apikey=9abc39b8&&i=tt0120338\r",
+							"//Then \r",
+							"//in response I have validated Response code is 200 .\r",
+							"//Verifying in response body Title key/field is present in response \r",
+							"//Verifying My Movie Rating & movie Title (Which I have stored in varaibles from above API call i.e 'Search by MovieTitle') is matching with respective response body values i.e Rating and Title."
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"\r",
+							"\r",
+							"tests[\"TC_01_Verify that Response Code should be 200\"]=responseCode.code===200;\r",
+							"var jsonData=JSON.parse(responseBody);\r",
+							"tests[\"TC_02_Verify that Responsebody has field called Title ?\"]=responseBody.has(\"Title\");\r",
+							"\r",
+							"//Creating MV_Name variable in environment and storing value of Title into it from responseBody.\r",
+							"pm.environment.set(\"MV_Name\",\"Titanic\");\r",
+							"var MV_Name=postman.getEnvironmentVariable(\"MV_Name\");\r",
+							"tests[\"TC_03_Verify that Title of movie in Responsebody is : '\"+jsonData.Title+\"' , Dose it matched with Expected Title? '\"+MV_Name+\"'.\"]=jsonData.Title==postman.getEnvironmentVariable(\"MV_Name\");\r",
+							"\r",
+							"tests[\"TC_04_Verify that stored Value of Movie Title (MV_Name) is Matching with ResponseBody Movie Title\"]=jsonData.Title==postman.getEnvironmentVariable(\"MV_Name\");\r",
+							"tests[\"TC_05_Verify that stored Value of Movie ID (ImdbID) is Matching with ResponseBody imdbID value\"]=jsonData.imdbID==postman.getEnvironmentVariable(\"ImdbID\");\r",
+							"tests[\"TC_06_Verify that stored value of rating[0] is matching with ResponseBody Rating[0]'s value\"]=jsonData.Ratings[0].Value==postman.getEnvironmentVariable(\"Rating[0]\");\r",
+							"tests[\"TC_07_Verify that From Response Body Ratings[1].Source is Matching to my given text i.e 'Rotten Tomatoes' \"]=jsonData.Ratings[1].Source==\"Rotten Tomatoes\";\r",
+							"\r",
+							"tests[\"TC_08_Verify that total collection of movie is matching with response value\"]=jsonData.BoxOffice==postman.getEnvironmentVariable(\"BoxOfficeCollection\");\r",
+							"\r",
+							"tests[\"TC_09_Verify that the resposne is not false in response body\"]=jsonData.Response!=\"False\";\r",
+							"\r",
+							"pm.test(\"TC_10_Verify that Resposne body is having my given string in it of not\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Won 11 Oscars. Another 115 wins & 83 nominations.\");\r",
+							"});\r",
+							"// pm.test(\"TC_11_Verify that ResponseBody is correct\", function () {\r",
+							"    // pm.response.to.have.body(\"responseBody\");\r",
+							"// });\r",
+							"\r",
+							"//Validating Entire resposne Body. I have provided entire response body as a parameter\r",
+							"pm.test(\"TC_11_A_Verify that Body is correct\", function () {\r",
+							"    pm.response.to.have.body({\r",
+							"    \"Title\": \"Titanic\",\r",
+							"    \"Year\": \"1997\",\r",
+							"    \"Rated\": \"PG-13\",\r",
+							"    \"Released\": \"19 Dec 1997\",\r",
+							"    \"Runtime\": \"194 min\",\r",
+							"    \"Genre\": \"Drama, Romance\",\r",
+							"    \"Director\": \"James Cameron\",\r",
+							"    \"Writer\": \"James Cameron\",\r",
+							"    \"Actors\": \"Leonardo DiCaprio, Kate Winslet, Billy Zane, Kathy Bates\",\r",
+							"    \"Plot\": \"A seventeen-year-old aristocrat falls in love with a kind but poor artist aboard the luxurious, ill-fated R.M.S. Titanic.\",\r",
+							"    \"Language\": \"English, Swedish, Italian, French\",\r",
+							"    \"Country\": \"USA, Mexico, Australia, Canada\",\r",
+							"    \"Awards\": \"Won 11 Oscars. Another 115 wins & 83 nominations.\",\r",
+							"    \"Poster\": \"https://m.media-amazon.com/images/M/MV5BMDdmZGU3NDQtY2E5My00ZTliLWIzOTUtMTY4ZGI1YjdiNjk3XkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_SX300.jpg\",\r",
+							"    \"Ratings\": [\r",
+							"        {\r",
+							"            \"Source\": \"Internet Movie Database\",\r",
+							"            \"Value\": \"7.8/10\"\r",
+							"        },\r",
+							"        {\r",
+							"            \"Source\": \"Rotten Tomatoes\",\r",
+							"            \"Value\": \"89%\"\r",
+							"        },\r",
+							"        {\r",
+							"            \"Source\": \"Metacritic\",\r",
+							"            \"Value\": \"75/100\"\r",
+							"        }\r",
+							"    ],\r",
+							"    \"Metascore\": \"75\",\r",
+							"    \"imdbRating\": \"7.8\",\r",
+							"    \"imdbVotes\": \"1,067,012\",\r",
+							"    \"imdbID\": \"tt0120338\",\r",
+							"    \"Type\": \"movie\",\r",
+							"    \"DVD\": \"01 Jun 2014\",\r",
+							"    \"BoxOffice\": \"$659,363,944\",\r",
+							"    \"Production\": \"20th Century Fox, Lightstorm Entertainment, Paramount Pictures\",\r",
+							"    \"Website\": \"N/A\",\r",
+							"    \"Response\": \"True\"\r",
+							"});\r",
+							"});\r",
+							"pm.test(\"_TC_12_Verify that Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{protocol}}{{url}}?apikey=9abc39b8&&i=tt0120338",
+					"host": [
+						"{{protocol}}{{url}}"
+					],
+					"query": [
+						{
+							"key": "apikey",
+							"value": "9abc39b8"
+						},
+						{
+							"key": null,
+							"value": null
+						},
+						{
+							"key": "i",
+							"value": "tt0120338"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

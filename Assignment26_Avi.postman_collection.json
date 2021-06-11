@@ -1,0 +1,200 @@
+{
+	"info": {
+		"_postman_id": "3abdddfc-dc9b-49de-834e-9e940a769d2b",
+		"name": "Assignment26_Avi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GETALL",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"postman.setEnvironmentVariable(\"protocol\", \"http://\");\r",
+							"postman.setEnvironmentVariable(\"url\", \"localhost:8089/\");\r",
+							"postman.setEnvironmentVariable(\"uri\", \"employees\");\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Is response generated with status code as 200 ?\"] = responseCode.code === 200;\r",
+							"tests[\"Does response body has field called NAME ?\"] = responseBody.has(\"name\");\r",
+							"tests[\"Does response body has field called ENO ?\"] = responseBody.has(\"eno\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{protocol}}{{url}}{{uri}}",
+					"host": [
+						"{{protocol}}{{url}}{{uri}}"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{name}}",
+							"disabled": true
+						},
+						{
+							"key": "eno",
+							"value": "{{eno}}",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "Pooja",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET_EMP_DETAILS",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"postman.setEnvironmentVariable(\"protocol\", \"http://\");\r",
+							"postman.setEnvironmentVariable(\"url\", \"localhost:8089/\");\r",
+							"postman.setEnvironmentVariable(\"uri\", \"employees\");\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Is response generated with status code as 200 ?\"] = responseCode.code === 200;\r",
+							"tests[\"Does response body has field called NAME ?\"] = responseBody.has(\"name\");\r",
+							"tests[\"Does response body has field called ENO ?\"] = responseBody.has(\"eno\");\r",
+							"pm.test(\"Response Date is Matching to Sysdate?\", function () {\r",
+							"    pm.response.to.have.header(\"Date\");\r",
+							"});\r",
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201, 202]);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 3000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+							"});\r",
+							"pm.test(\"Is Connection Present & Active?\", function () {\r",
+							"    pm.response.to.have.header(\"Connection\");\r",
+							"});\r",
+							"pm.test(\"Status code name has string=OK?\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Name Field =Avi?\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.value).to.eql(\"Avi\");\r",
+							"});\r",
+							"tests[\"Response Size\"]=responseBody.has(\"Response Size\");\r",
+							"pm.test(\"Content-Type ='application/json'?\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"pm.test(\"Response header content type 'Transfer-Encoding'?\", function () {\r",
+							"    pm.response.to.have.header(\"Transfer-Encoding\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{protocol}}{{url}}{{uri}}?eno=2",
+					"host": [
+						"{{protocol}}{{url}}{{uri}}"
+					],
+					"query": [
+						{
+							"key": "eno",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostMethod to add Employee",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// postman.setEnvironmentVariable(\"eno\", \"FileData.eno\");\r",
+							"// postman.setEnvironmentVariable(\"name\", \"FileData.name\");\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Is response generated with status code as 200 ?\"] = responseCode.code === 200;\r",
+							"tests[\"Does response body has field called NAME ?\"] = responseBody.has(\"name\");\r",
+							"tests[\"Does response body has field called ENO ?\"] = responseBody.has(\"eno\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"{{name}}\",\r\n    \"eno\": {{eno}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}{{url}}{{uri}}",
+					"host": [
+						"{{protocol}}{{url}}{{uri}}"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{name}}",
+							"disabled": true
+						},
+						{
+							"key": "eno",
+							"value": "{{eno}}",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

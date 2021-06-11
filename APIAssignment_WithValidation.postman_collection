@@ -1,0 +1,490 @@
+{
+	"info": {
+		"_postman_id": "e94a41b5-73a5-4d1e-a148-2dbdf7755825",
+		"name": "APIAssignment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Head Employee",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "HEAD",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://dummy.restapiexample.com/api/v1/employees",
+					"protocol": "https",
+					"host": [
+						"dummy",
+						"restapiexample",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Employee Details",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://dummy.restapiexample.com/api/v1/employees",
+					"protocol": "https",
+					"host": [
+						"dummy",
+						"restapiexample",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Specific Employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var resp_time=pm.responseTime\r",
+							"\r",
+							"tests[\"Do I get Response lesser than \"+2000+\" miliseconds\"]=pm.responseTime <=2000;\r",
+							"tests[\"Does my response having Status code = 200\"] = responseCode.code === 200;\r",
+							"tests[\"does my response body contains id field in it ?\"] = responseBody.has(\"id\");\r",
+							"tests[\"does employee_name field present in my response body ?\"]=responseBody.has(\"employee_name\");\r",
+							"tests[\"Does my response body having field called employee_salary in it?\"]=responseBody.has(\"employee_salary\");\r",
+							"tests[\"Does my response body populates employee_age field in it?\"]=responseBody.has(\"employee_age\");\r",
+							"\r",
+							"var jsonData = JSON.parse(responseBody);\r",
+							"\r",
+							"var tests_id=postman.getEnvironmentVariable(\"GET_emp_id\");\r",
+							"tests[\"Value of field id in reponse matching with env variable value?\"] =jsonData.data.id===tests_id;\r",
+							"\r",
+							"tests[\"Does value of field 'employee_name' in response body matches with expected value of environment variable?\"] = jsonData.data.employee_name === postman.getEnvironmentVariable(\"GET_emp_name\");\r",
+							"\r",
+							"var tests_sal=postman.getEnvironmentVariable(\"GET_emp_sal\");\r",
+							"tests[\"Value of field employee_salary in reponse matching with env variable value?\"] = jsonData.data.employee_salary === tests_sal;\r",
+							"\r",
+							"var tests_age=postman.getEnvironmentVariable(\"GET_emp_age\");\r",
+							"tests[\"Value of field employee_age in reponse matching with env variable value?\"] =jsonData.data.employee_age===tests_age;\r",
+							"\r",
+							"tests[\"Is profile_image Null ?\"] = jsonData.profile_image == null;\r",
+							"// tests[\"Response body message =Success?\"]=responseBody.pm.message===\"Successfully! Record has been fetched.\";\r",
+							"\r",
+							"pm.test(\"Status code name has OK string\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var randomNumber = getRandomInt(10000, 11000);\r",
+							"\r",
+							"function getRandomInt(min, max) {\r",
+							"return Math.floor(Math.random() * (max - min + 1)) + min;\r",
+							"}\r",
+							"\r",
+							"postman.setEnvironmentVariable(\"name_for_validation\", \"samplename_\"+randomNumber);\r",
+							"postman.setEnvironmentVariable(\"salary_for_validation\", getRandomInt(10000, 11000));\r",
+							"postman.setEnvironmentVariable(\"age_for_validation\", getRandomInt(18, 60));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://dummy.restapiexample.com/api/v1/employee/{{GET_emp_id}}",
+					"protocol": "https",
+					"host": [
+						"dummy",
+						"restapiexample",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employee",
+						"{{GET_emp_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//validation to check correct Status code of response .\r",
+							"tests[\"Is response generated with status code as 200 ?\"] = responseCode.code === 200;\r",
+							"\r",
+							"//validation to check presence of id field in response body.\r",
+							"tests[\"Does response body has field called id ?\"] = responseBody.has(\"id\");\r",
+							"\r",
+							"var jsonData = JSON.parse(responseBody);  // Entire Response body is stored in variable called jsonData.\r",
+							"\r",
+							"pm.environment.set(\"emp_id\", jsonData.data.id); //value of id field in response body is stored in emp_id variable and emp_id variable is created in environment.\r",
+							"\r",
+							"//validation to check presence of name field in response body.\r",
+							"tests[\"Does response body has field called name ?\"] = responseBody.has(\"name\");\r",
+							"\r",
+							"var e_name=postman.getEnvironmentVariable(\"name_for_validation\");//I have fetched Value from env variable and stored in declared variables in tests\r",
+							"var sal=postman.getEnvironmentVariable(\"salary_for_validation\");\r",
+							"var ag=postman.getEnvironmentVariable(\"age_for_validation\");\r",
+							"var e_id=postman.getEnvironmentVariable(\"emp_id\");\r",
+							"\r",
+							"//Note: name ,salary ,age & id are actual field names present in response body.\r",
+							"//e.g:jsonData.data.name  , jsonData.data.age , jsonData.data.salary , jsonData.data.id etc..\r",
+							"\r",
+							"//validation to check value of name field in response body is matching with my expected value of name which was given in request body while creating new employee.\r",
+							"tests[\"Value of name field in response body : \"+jsonData.data.name+\" Is it matching with my expected value \"+e_name]=jsonData.data.name === postman.getEnvironmentVariable(\"name_for_validation\");\r",
+							"\r",
+							"//validation to check presence of salary field in response body.\r",
+							"tests[\"Does Salary field present in Response body?\"] = responseBody.has(\"salary\");\r",
+							"\r",
+							"tests[\"Value for Salary in Response is \"+jsonData.data.salary+\" , & my expected value for Salary is \"+sal]=jsonData.data.salary === postman.getEnvironmentVariable(\"salary_for_validation\");\r",
+							"\r",
+							"//validation to check presence of age field in response body.\r",
+							"tests[\"Does Resonse body contains age field?\"] = responseBody.has(\"age\");\r",
+							"\r",
+							"//validation to check age value in response is matching with submitted value in request.\r",
+							"//you can find what values are submitted for name,salary and age field in pre-requisite script of getSpecific Employee API of APIAssignment collection\r",
+							"tests[\"Value for Age in Response is \"+jsonData.data.age+\" & Expected value is \"+ag]=jsonData.data.age === postman.getEnvironmentVariable(\"age_for_validation\");\r",
+							"\r",
+							"//validation to check id value in response is matching with stored value in emp_id environment variable.\r",
+							"tests[\"Value of ID in Response is \"+jsonData.data.id+\" Expected Value is \"+e_id]=jsonData.data.id === postman.getEnvironmentVariable(\"emp_id\");\r",
+							"\r",
+							"//for my understanding added below tests to perform validation by storing response body value in one variable and feching value of emp_id variable from environment & matching those with one another\r",
+							"var my_id=jsonData.data.id;\r",
+							"tests[\"Is my expected ID Present in response \"]=my_id===e_id;\r",
+							"\r",
+							"//validatoin to check reponse time.\r",
+							"var resp_time=pm.responseTime\r",
+							"tests[\"Do I get Response in lesser than \"+1000+\" milli seconds\"]=pm.responseTime <=1000;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"{{name_for_validation}}\",\r\n    \"salary\": \"{{salary_for_validation}}\",\r\n    \"age\": \"{{age_for_validation}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{PROTOCOL}}://{{URL}}/api/v1/create",
+					"protocol": "{{PROTOCOL}}",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//validation to check correct Status code of response .\r",
+							"tests[\"Is response generated with status code as 200 ?\"] = responseCode.code === 200;\r",
+							"\r",
+							"var jsonData = JSON.parse(responseBody);  // Entire Response body is stored in variable called jsonData.\r",
+							"\r",
+							"//validation to check presence of name field in response body.\r",
+							"tests[\"Does response body has field called name ?\"] = responseBody.has(\"name\");\r",
+							"\r",
+							"var e_name=postman.getEnvironmentVariable(\"name_to_be_updated\");//I have fetched Value from env variable and stored in declared variables in tests\r",
+							"var sal=postman.getEnvironmentVariable(\"sal_to_be_updated\");\r",
+							"var ag=postman.getEnvironmentVariable(\"age_to_be_updated\");\r",
+							"\r",
+							"//Note: name ,salary ,age & id are actual field names present in response body.\r",
+							"//e.g:jsonData.data.name  , jsonData.data.age , jsonData.data.salary , jsonData.data.id etc..\r",
+							"\r",
+							"//validation to check value of name field in response body is matching with my expected value of name which was given in request body while creating new employee.\r",
+							"tests[\"Value of name field in response body : \"+jsonData.data.name+\" Is it matching with my expected value \"+e_name]=jsonData.data.name === postman.getEnvironmentVariable(\"sal_to_be_updated\");\r",
+							"\r",
+							"//validation to check presence of salary field in response body.\r",
+							"tests[\"Does Salary field present in Response body?\"] = responseBody.has(\"salary\");\r",
+							"\r",
+							"tests[\"Value for Salary in Response is \"+jsonData.data.salary+\" , & my expected value for Salary is \"+sal]=jsonData.data.salary === postman.getEnvironmentVariable(\"sal_to_be_updated\");\r",
+							"\r",
+							"//validation to check presence of age field in response body.\r",
+							"tests[\"Does Resonse body contains age field?\"] = responseBody.has(\"age\");\r",
+							"\r",
+							"//validation to check age value in response is matching with submitted value in request.\r",
+							"//you can find what values are submitted for name,salary and age field in pre-requisite script of getSpecific Employee API of APIAssignment collection\r",
+							"tests[\"Value for Age in Response is \"+jsonData.data.age+\" & Expected value is \"+ag]=jsonData.data.age === postman.getEnvironmentVariable(\"age_to_be_updated\");\r",
+							"\r",
+							"//validatoin to check reponse time.\r",
+							"var resp_time=pm.responseTime\r",
+							"tests[\"Do I get Response in lesser than \"+2000+\" milli seconds\"]=pm.responseTime <=2000;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"{{name_to_be_updated}}\",\r\n    \"salary\": \"{{sal_to_be_updated}}\",\r\n    \"age\": \"29\" //just kept direct value for age so that later if I want to know the format for how to provide direct values in payload for any field. \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dummy.restapiexample.com/api/v1/update/21",
+					"protocol": "https",
+					"host": [
+						"dummy",
+						"restapiexample",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"update",
+						"21"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Response got status code 200 ?\"]=responseCode.code===200;\r",
+							"\r",
+							"var jsonData=JSON.parse(responseBody);\r",
+							"tests[\"status field exists in response body ?\"]= responseBody.has(\"status\");\r",
+							"tests[\"data field exists in response body ?\"]= responseBody.has(\"data\");\r",
+							"tests[\"Is Response has returned success status ?\"]=jsonData.status===\"success\";\r",
+							"tests[\"Is Response showing my deleted Id?\"]=jsonData.data===postman.getEnvironmentVariable(\"id_to_be_deleted\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dummy.restapiexample.com/api/v1/delete/{{id_to_be_deleted}}",
+					"protocol": "https",
+					"host": [
+						"dummy",
+						"restapiexample",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"delete",
+						"{{id_to_be_deleted}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://dummy.restapiexample.com/api/v1/employee/11",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var My_Id=2;\r",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+							"tests[\"Has Employee Id\"] = responseBody.has(\"id\");\r",
+							"tests[\"has Actual Name\"]=responseBody.has(\"employee_name\");\r",
+							"tests[\"has Actual Salary\"]=responseBody.has(\"employee_salary\");\r",
+							"tests[\"has Actual Age\"]=responseBody.has(\"employee_age\");\r",
+							"// pm.test(\"Body is correct\", function () {\r",
+							"    // pm.response.to.have.body(\"response_body_string\");\r",
+							"// });\r",
+							"\r",
+							"// postman.setEnvironmentVariable(\"name_to_be_fetched\", \"samplename_\"+randomNumber);\r",
+							"var jsonData = JSON.parse(responseBody);\r",
+							"tests[\"Does My Employee exists\"] = jsonData.data.employee_name === postman.getEnvironmentVariable(\"name\");\r",
+							"tests[\"Does Employee exists\"] = postman.getEnvironmentVariable(\"emp_name\") ===postman.getEnvironmentVariable(\"name\"); \r",
+							"pm.environment.set(\"My_Id\", jsonData.data.id);\r",
+							"pm.environment.set(\"emp_age\", jsonData.data.employee_age);\r",
+							"pm.environment.set(\"emp_salary\", jsonData.data.employee_salary);\r",
+							"pm.environment.set(\"emp_name\", jsonData.data.employee_name);\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var randomNumber = getRandomInt(10000, 11000);\r",
+							"\r",
+							"function getRandomInt(min, max) {\r",
+							"return Math.floor(Math.random() * (max - min + 1)) + min;\r",
+							"}\r",
+							"postman.setEnvironmentVariable(\"name_for_validation\", \"samplename_\"+randomNumber);\r",
+							"postman.setEnvironmentVariable(\"salary_for_validation\", getRandomInt(10000, 11000));\r",
+							"postman.setEnvironmentVariable(\"age_for_validation\", getRandomInt(18, 60));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://dummy.restapiexample.com/api/v1/employee/11",
+					"protocol": "https",
+					"host": [
+						"dummy",
+						"restapiexample",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employee",
+						"11"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
