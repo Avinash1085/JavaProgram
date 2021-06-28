@@ -4,7 +4,7 @@ public class Calculator
 	public static void main(String[] args)
 	{
 		int num1,num2;
-		num1=35;
+		num1=45;
 		num2=20;
 		
 		System.out.println("# Assignment No: 3.");
