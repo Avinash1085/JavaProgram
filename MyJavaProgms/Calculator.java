@@ -5,7 +5,7 @@ public class Calculator
 	{
 		int num1,num2;
 		num1=35;
-		num2=10;
+		num2=20;
 		
 		System.out.println("# Assignment No: 3.");
 		System.out.println("Program Name : "+ "Simple Calculator.");
